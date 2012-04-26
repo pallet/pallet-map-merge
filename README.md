@@ -28,9 +28,9 @@ You can override this by specifying a merge policy on a per key basis.
 
 ## Installation
 
-To use pallet-thread, add the following to your :dependencies:
+To use pallet-map-merge, add the following to your :dependencies:
 
-[pallet-thread "0.1.0-SNAPSHOT"]
+[pallet-map-merge "0.1.0-SNAPSHOT"]
 
 ## License
 
