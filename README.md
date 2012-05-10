@@ -26,11 +26,16 @@ You can override this by specifying a merge policy on a per key basis.
   => {:a [1 2] :b #{1 2}}
 ```
 
+[API docs](http://pallet.github.com/pallet-map-merge/0.1)
+
 ## Installation
 
-To use pallet-map-merge, add the following to your :dependencies:
+To use pallet-map-merge, add the following to your `:dependencies` in
+`project.clj`:
 
+```clj
 [pallet-map-merge "0.1.0-SNAPSHOT"]
+```
 
 ## License
 
