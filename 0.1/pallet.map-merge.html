@@ -1,0 +1,71 @@
+<html lang="en">
+  <head>
+    <title>pallet.map-merge documentation</title>
+    <link href="css/default.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/page_effects.js"></script>
+  </head>
+  <body>
+    <header>
+      <div id="header">
+        <h1 class="project-title">Pallet-map-merge 0.1.0-SNAPSHOT API documentation</h1>
+      </div>
+    </header>
+    <navigation>
+      <div id="namespaces" class="sidebar">
+        <h3>Namespaces</h3>
+        <ul class="ns-links">
+          <li class="ns-link"><a href="pallet.map-merge.html">pallet.map-merge</a></li>
+        </ul>
+      </div>
+      <div id="vars" class="sidebar">
+        <h3>Public Vars</h3>
+        <ul class="ns-var-links">
+          <li class="ns-var-link"><a href="pallet.map-merge.html#var-deep-merge-with">deep-merge-with</a></li><li class="ns-var-link"><a href="pallet.map-merge.html#var-merge-key">merge-key</a></li><li class="ns-var-link"><a href="pallet.map-merge.html#var-merge-keys">merge-keys</a></li>
+        </ul>
+      </div>
+    </navigation>
+    <article>
+      <div id="content" class="namespace-docs">
+        <h2 class="namespace-title">pallet.map-merge documentation</h2>
+        <div class="doc"><p>Map merging algorithms. Enables specification of merging function on a
+per key basis.</p>
+</div>
+        <div class="ns-vars">
+          <div class="public">
+            <h3 id="var-deep-merge-with">deep-merge-with</h3>
+            <div class="usage">[f &amp; maps]</div>
+            
+            
+            <div class="doc"><p>Like merge-with, but merges maps recursively, applying the given fn
+only when there's a non-map at a particular level.</p>
+
+<p>(deepmerge + {:a {:b {:c 1 :d {:x 1 :y 2}} :e 3} :f 4}
+             {:a {:b {:c 2 :d {:z 9} :z 3} :e 100}})
+-&gt; {:a {:b {:z 3, :c 3, :d {:z 9, :x 1, :y 2}}, :e 103}, :f 4}</p>
+</div>
+          </div><div class="public">
+            <h3 id="var-merge-key">merge-key</h3>
+            
+            
+            
+            <div class="doc"><p>Merge function that dispatches on the map entry key</p>
+</div>
+          </div><div class="public">
+            <h3 id="var-merge-keys">merge-keys</h3>
+            <div class="usage">[key-algorithms &amp; maps]</div>
+            
+            
+            <div class="doc"><p>Returns a map that consists of the rest of the maps conj-ed onto
+the first.  If a key occurs in more than one map, the mapping(s)
+from the latter (left-to-right) will be combined with the mapping in
+the result by calling:
+  (merge-key key-algorithms key val-in-result val-in-latter).</p>
+</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+
+</html>
