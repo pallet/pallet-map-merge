@@ -37,6 +37,8 @@ To use pallet-map-merge, add the following to your `:dependencies` in
 [pallet-map-merge "0.1.0"]
 ```
 
+[![Build Status](https://secure.travis-ci.org/palletops/pallet-map-merge.png)](http://travis-ci.org/palletops/pallet-map-merge)
+
 ## License
 
 Copyright © 2012 Hugo Duncan
