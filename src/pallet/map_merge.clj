@@ -7,7 +7,19 @@
 (defmulti merge-key
   "Merge function that dispatches on the map entry key"
   (fn [algorithms key val-in-result val-in-latter]
-    (algorithms key :deep-merge)))
+    (try
+      (algorithms key :deep-merge)
+      (catch Exception e
+        (throw
+         (ex-info (str "Cannot merge: "
+                       (pr-str val-in-result)
+                       (pr-str val-in-latter)
+                       "in key " key)
+                  {:type :map-merge-fail}
+                  e))))))
+
+(defn- map-or-nil? [x]
+  (or (nil? x) (map? x)))
 
 (defn merge-keys
   "Returns a map that consists of the rest of the maps conj-ed onto
@@ -16,6 +28,7 @@
   the result by calling:
     (merge-key key-algorithms key val-in-result val-in-latter)."
   [key-algorithms & maps]
+  {:pre [(every? map-or-nil? maps)]}
   (when (some identity maps)
     (let [merge-entry (fn [m e]
                         (let [k (key e) v (val e)]
@@ -26,22 +39,6 @@
                    (reduce merge-entry (or m1 {}) (seq m2)))]
       (reduce merge2 maps))))
 
-;; by Chouser: from clojure.contrib.map-utils
-(defn deep-merge-with
-  "Like merge-with, but merges maps recursively, applying the given fn
-  only when there's a non-map at a particular level.
-
-  (deepmerge + {:a {:b {:c 1 :d {:x 1 :y 2}} :e 3} :f 4}
-               {:a {:b {:c 2 :d {:z 9} :z 3} :e 100}})
-  -> {:a {:b {:z 3, :c 3, :d {:z 9, :x 1, :y 2}}, :e 103}, :f 4}"
-  [f & maps]
-  (apply
-    (fn m [& maps]
-      (if (every? map? maps)
-        (apply merge-with m maps)
-        (apply f maps)))
-    maps))
-
 (defmethod merge-key :replace
   [_ _ val-in-result val-in-latter]
   val-in-latter)
@@ -51,14 +48,10 @@
   (merge val-in-result val-in-latter))
 
 (defmethod merge-key :deep-merge
-  [_ _ val-in-result val-in-latter]
-  (let [map-or-nil? (fn [x] (or (nil? x) (map? x)))]
-    (deep-merge-with
-     (fn deep-merge-env-fn [x y]
-       (if (and (map-or-nil? x) (map-or-nil? y))
-         (merge x y)
-         (or y x)))
-     val-in-result val-in-latter)))
+  [algorithms _ val-in-result val-in-latter]
+  (if (and (map-or-nil? val-in-result) (map-or-nil? val-in-latter))
+    (merge-keys algorithms val-in-result val-in-latter)
+    (or val-in-latter val-in-result)))
 
 (defmethod merge-key :merge-comp
   [_ _ val-in-result val-in-latter]
