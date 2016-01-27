@@ -1,4 +1,4 @@
-(defproject pallet-map-merge "0.1.1-SNAPSHOT"
+(defproject pallet-map-merge "0.1.1"
   :description "Merging of clojure maps using per-key merge policies."
   :url "https://github.com/pallet/pallet-map-merge"
   :license {:name "Eclipse Public License"

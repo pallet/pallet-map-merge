@@ -34,7 +34,7 @@ To use pallet-map-merge, add the following to your `:dependencies` in
 `project.clj`:
 
 ```clj
-[pallet-map-merge "0.1.0"]
+[pallet-map-merge "0.1.1"]
 ```
 
 [![Build Status](https://secure.travis-ci.org/pallet/pallet-map-merge.png)](http://travis-ci.org/pallet/pallet-map-merge)
