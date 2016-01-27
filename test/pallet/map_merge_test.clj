@@ -51,3 +51,10 @@
           {:a :concat :b :union}
           {:a [1] :b #{1}}
           {:a [2] :b #{2}}))))
+
+(deftest merge-keys-nested-test
+  (is (= {:c {:a [1 2] :b #{1 2}}}
+         (merge-keys
+          {:a :concat :b :union}
+          {:c {:a [1] :b #{1}}}
+          {:c {:a [2] :b #{2}}}))))
